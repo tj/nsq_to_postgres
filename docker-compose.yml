@@ -1,0 +1,30 @@
+
+nsqd:
+  image: segment/nsqd
+  ports:
+    - "4150:4150"
+    - "4151:4151"
+  links:
+    - nsqlookupd
+
+nsqadmin:
+  image: segment/nsqadmin
+  ports:
+    - "4171:4171"
+  links:
+    - nsqlookupd
+    - nsqd
+
+nsqlookupd:
+  image: segment/nsqlookupd
+  ports:
+    - "4160:4160"
+    - "4161:4161"
+
+postgres:
+  image: postgres:9.4
+  ports:
+    - "5432:5432"
+  environment:
+    POSTGRES_PASSWORD: sloth
+    POSTGRES_USER: tj
