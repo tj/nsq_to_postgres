@@ -35,7 +35,28 @@ Result:
 
 ## Configuration
 
- TODO:
+ A configuration file _must_ be specified via `--config`, I prefer making the path explicit so no one is left guessing of its whereabouts (unlike most programs, grr!).
+
+ Two sections are available for tweaking, first the `postgres` section which defines the connection information, the target table name, target column name, and verbosity. The other section available is `nsq` which defines the topic to consume from, the nsqd or nsqlookupd addresses, max number of retry attempts and so on.
+
+ Here's an example. For more nsq configuration options visit [segmentio/go-queue](https://github.com/segmentio/go-queue).
+
+```yml
+postgres:
+  connection: user=tj password=sloth host=localhost port=5432 sslmode=disable
+  table: logs
+  column: log
+  max_open_connections: 10
+  verbose: no
+
+nsq:
+  topic: logs
+  nsqd: localhost:4150
+  max_attempts: 5
+  msg_timeout: 15s
+  max_in_flight: 300
+  concurrency: 50
+```
 
 ## Development
 
@@ -51,3 +72,6 @@ Connect via `psql`:
 $ make client
 ```
 
+# License
+
+MIT

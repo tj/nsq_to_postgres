@@ -58,7 +58,7 @@ func main() {
 	}
 
 	// Apply nsq config
-	c := queue.NewConsumer("", "")
+	c := queue.NewConsumer("", "nsq_to_postgres")
 
 	for k, v := range config.Nsq {
 		c.Set(k, v)
